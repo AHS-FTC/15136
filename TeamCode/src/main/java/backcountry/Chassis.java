@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package backcountry;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-
-import org.firstinspires.ftc.teamcode.sensors.IMUClass;
+import backcountry.sensors.IMUClass;
 
 public class Chassis{
 
