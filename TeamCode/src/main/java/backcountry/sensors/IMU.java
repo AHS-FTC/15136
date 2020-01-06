@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class IMUClass {
+public class IMU {
     private BNO055IMU imu;
     private Orientation lastAngles = new Orientation();
     private BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -15,7 +15,7 @@ public class IMUClass {
     double offset = 0;
     int globalAngle;
 
-    public IMUClass(BNO055IMU imu) {
+    public IMU(BNO055IMU imu) {
         this.imu = imu;
 
         parameters.mode = BNO055IMU.SensorMode.IMU;

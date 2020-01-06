@@ -1,6 +1,8 @@
 package backcountry;
 
-import backcountry.sensors.IMUClass;
+import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
+
+import backcountry.sensors.IMU;
 
 public class Chassis{
 
@@ -10,7 +12,7 @@ public class Chassis{
     private DriveUnit LeftBack;
 
     private double runTime;
-    private IMUClass IMU;
+    private backcountry.sensors.IMU IMU;
 
 
     public Chassis(){
@@ -18,7 +20,7 @@ public class Chassis{
         this.LeftFront= new DriveUnit(1,4,"LeftFront",true);
         this.RightBack= new DriveUnit(1,4,"RightBack",false);
         this.LeftBack= new DriveUnit(1,4,"LeftBack",true);
-        this.IMU = new IMUClass(FTCUtilities.getIMU("BNO055IMU"));
+        this.IMU = new IMU(FTCUtilities.getIMU("imu"));
 
     }
 
@@ -37,8 +39,8 @@ public class Chassis{
         RightFront.zeroDistance();
         LeftFront.zeroDistance();
 
-        boolean run = true;
-        while(run){
+        while(true){
+
             RightBack.setPower(Speed);
             LeftBack.setPower(Speed);
             RightFront.setPower(Speed);
@@ -48,8 +50,9 @@ public class Chassis{
             double TravledLeft = LeftFront.getInchesTravelled();
 
             if((TravledRight > Distence) || (TravledLeft > Distence)){
-                run = false;
+                break;
             }
+            throw new Warning("you're in the while loop");
         }
 
         RightBack.setPower(0);
@@ -58,7 +61,7 @@ public class Chassis{
         LeftFront.setPower(0);
     }
 
-    private void rotate(int degrees, double power){
+    public void Rotate(int degrees, double power){
 
         double  leftPower, rightPower;
 
@@ -123,10 +126,6 @@ public class Chassis{
         RightFront.setPower(0);
         LeftFront.setPower(0);
     }
-
-    public void Arc(double speed,double Rotation){
-
-}
 
 }
 

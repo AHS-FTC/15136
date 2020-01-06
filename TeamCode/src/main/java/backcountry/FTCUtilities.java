@@ -19,10 +19,6 @@ public class FTCUtilities {
         return hardwareMap;
     }
 
-    public static void setHardWareMap(HardwareMap hw){
-        FTCUtilities.hardwareMap = hw;
-    }
-
     public static void setTelemetry(Telemetry t){
         FTCUtilities.telemetry = t;
     }
@@ -33,6 +29,12 @@ public class FTCUtilities {
 
     public static void setOpMode(OpMode o){
         FTCUtilities.opMode = o;
+        hardwareMap = o.hardwareMap;
+    }
+
+    public static void getTelemetry(String caption, Object object){
+        opMode.telemetry.addData(caption, object);
+        opMode.telemetry.update();
     }
 
     public static BNO055IMU getIMU (String imuName){

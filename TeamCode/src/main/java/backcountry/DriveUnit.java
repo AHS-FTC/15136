@@ -1,6 +1,7 @@
 package backcountry;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 //import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -51,8 +52,7 @@ public class DriveUnit {
         double revolutions = ticks/ticksPerRevolution;
         double distance = revolutions*wheelDiameter*Math.PI;
 
-        FTCUtilities.getTelemetry().addData("Ticks: ",ticks);
-        FTCUtilities.getTelemetry().update();
+        FTCUtilities.getTelemetry("Ticks: ",ticks);
 
         return distance;
 
