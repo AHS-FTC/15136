@@ -34,10 +34,10 @@ public class Chassis{
     }
 
     public void StraitMotion(double Speed,double Distence){
-        RightBack.zeroDistance();
-        LeftBack.zeroDistance();
-        RightFront.zeroDistance();
-        LeftFront.zeroDistance();
+//        RightBack.zeroDistance();
+//        LeftBack.zeroDistance();
+//        RightFront.zeroDistance();
+//        LeftFront.zeroDistance();
 
         while(true){
 
@@ -49,10 +49,12 @@ public class Chassis{
             double TravledRight = RightFront.getInchesTravelled();
             double TravledLeft = LeftFront.getInchesTravelled();
 
+            FTCUtilities.getTelemetry("inches travles: ", RightFront.getInchesTravelled());
+
+
             if((TravledRight > Distence) || (TravledLeft > Distence)){
                 break;
             }
-            throw new Warning("you're in the while loop");
         }
 
         RightBack.setPower(0);

@@ -9,7 +9,6 @@ class TestPlan{
     }
     public void run(){
         c.StraitMotion(1.0,5);
-        c.Strafe(1.0,5);
-        c.Rotate(180,1.0);
+
     }
 }
