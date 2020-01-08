@@ -52,8 +52,6 @@ public class DriveUnit {
         double revolutions = ticks/ticksPerRevolution;
         double distance = revolutions*wheelDiameter*Math.PI;
 
-        FTCUtilities.getTelemetry("Ticks: ",ticks);
-
         return distance;
 
     }

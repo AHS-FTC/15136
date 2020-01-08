@@ -57,5 +57,6 @@ public class TestOpMode extends LinearOpMode {
 
         waitForStart();
         test1.run();
+        sleep(1000);
     }
 }
