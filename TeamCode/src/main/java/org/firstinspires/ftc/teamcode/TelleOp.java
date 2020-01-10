@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -16,6 +18,11 @@ public class TelleOp extends OpMode
     private DcMotor LeftFront = null;
     private DcMotor RightBack = null;
     private DcMotor LeftBack = null;
+    private DcMotor intakeRight = null;
+    private DcMotor intakeLeft = null;
+    private DcMotor beltRight = null;
+    private DcMotor beltLeft = null;
+    private Servo intakeflop = null;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -31,9 +38,25 @@ public class TelleOp extends OpMode
         LeftFront = hardwareMap.get(DcMotor.class, "LeftFront");
         RightBack  = hardwareMap.get(DcMotor.class, "RightBack");
         LeftBack = hardwareMap.get(DcMotor.class, "LeftBack");
+        intakeLeft  = hardwareMap.get(DcMotor.class, "intakeLeft");
+        intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
+        beltLeft  = hardwareMap.get(DcMotor.class, "beltLeft");
+        beltRight = hardwareMap.get(DcMotor.class, "beltRight");
+        intakeflop =hardwareMap.get(Servo.class,"intakeFlop");
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
+
+        LeftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        LeftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        RightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        RightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        LeftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LeftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
     @Override
@@ -47,42 +70,41 @@ public class TelleOp extends OpMode
 
     @Override
     public void loop() {
+        double drive = gamepad1.left_stick_y;
+        double strafe  =  gamepad1.left_stick_x;
+        double turn = gamepad1.right_stick_x;
 
-        double RightBackPower;
-        double LeftBackPower;
-        double RightFrontPower;
-        double LeftFrontPower;
+        double frontLeft = drive - strafe - turn;
+        double frontRight = drive + strafe + turn;
+        double backLeft = drive + strafe - turn;
+        double backRight = drive - strafe + turn;
 
-        double strafe = -gamepad1.right_stick_y;
-        double drive  =  gamepad1.right_stick_x;
-        double turn = gamepad1.left_stick_x;
-        RightBackPower    = Range.clip(drive, -1.0, 1.0) ;
-        LeftBackPower   = Range.clip(drive, -1.0, 1.0) ;
-        RightFrontPower    = Range.clip(drive, -1.0, 1.0) ;
-        LeftFrontPower   = Range.clip(drive, -1.0, 1.0) ;
+        double intake = gamepad1.right_trigger;
+        double intakeback = gamepad1.left_trigger;
+        boolean belt = gamepad1.right_bumper;
 
-        RightBackPower    = Range.clip(strafe, 1.0, -1.0) ;
-        LeftBackPower   = Range.clip(strafe, -1.0, 1.0) ;
-        RightFrontPower    = Range.clip(strafe, 1.0, -1.0) ;
-        LeftFrontPower   = Range.clip(strafe, -1.0, 1.0) ;
+        if(belt){
+            beltRight.setPower(-1);
+            beltLeft.setPower(1);
+        }else{
+            beltRight.setPower(0);
+            beltLeft.setPower(0);
+        }
 
-        RightBackPower = Range.clip(turn, -1.0, 1.0);
-        RightFrontPower = Range.clip(turn,-1.0, 1.0);
-        LeftBackPower = Range.clip(turn,1.0,-1.0);
-        LeftFrontPower = Range.clip(turn,1.0,-1.0);
+        if(gamepad1.y) {
+            intakeflop.setPosition(0);
+        }
 
+        intakeLeft.setPower(-intake);
+        intakeRight.setPower(intake);
+        intakeLeft.setPower(intakeback);
+        intakeRight.setPower(-intakeback);
 
-
-        // Send calculated power to wheels
-        RightBack.setPower(RightBackPower);
-        RightFront.setPower(LeftBackPower);
-        LeftBack.setPower(RightFrontPower);
-        LeftFront.setPower(LeftFrontPower);
+        RightBack.setPower(backRight);
+        RightFront.setPower(frontRight);
+        LeftBack.setPower(backLeft);
+        LeftFront.setPower(frontLeft);
     }
-
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
     @Override
     public void stop() {
     }

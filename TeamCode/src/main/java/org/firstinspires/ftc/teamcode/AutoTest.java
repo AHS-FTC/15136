@@ -29,23 +29,19 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import backcountry.Chassis;
 import backcountry.FTCUtilities;
 import backcountry.Robot;
 
-@TeleOp(name="Test", group="Linear Opmode")
+@Autonomous(name="AutoTest", group="Linear Opmode")
 
-public class TestOpMode extends LinearOpMode {
+public class AutoTest extends LinearOpMode {
 
     private Robot robot;
-    private TestPlan test1;
+    private PlanParkBlueNear test1;
 
     @Override
     public void runOpMode() {
@@ -53,10 +49,9 @@ public class TestOpMode extends LinearOpMode {
         robot = new Robot();
         robot.init();
         Chassis chassis = robot.getChassis();
-        test1 = new TestPlan(chassis);
+        test1 = new PlanParkBlueNear(chassis);
 
         waitForStart();
         test1.run();
-        sleep(1000);
     }
 }

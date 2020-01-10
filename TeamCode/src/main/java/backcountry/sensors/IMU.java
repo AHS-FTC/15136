@@ -9,11 +9,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class IMU {
     private BNO055IMU imu;
-    private Orientation lastAngles = new Orientation();
     private BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
     double lastAngle;
     double offset = 0;
-    int globalAngle;
+//    int globalAngle;
 
     public IMU(BNO055IMU imu) {
         this.imu = imu;
@@ -28,37 +27,19 @@ public class IMU {
 
     public void resetAngle(){
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        globalAngle = 0;
+        angles.firstAngle = 0;
     }
 
     public double getAngle(){
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+
+        double deltaAngle = angles.firstAngle;
 
         if (deltaAngle < -180)
-            deltaAngle += 360;
+            offset += 360;
         else if (deltaAngle > 180)
-            deltaAngle -= 360;
+            offset -= 360;
 
-        globalAngle += deltaAngle;
-
-        lastAngles = angles;
-
-        return globalAngle;
-    }
-
-    private double checkDirection(){
-        double correction, angle, gain = .10;
-
-        angle = getAngle();
-
-        if (angle == 0)
-            correction = 0;             // no adjustment.
-        else
-            correction = -angle;        // reverse sign of angle for correction.
-
-        correction = correction * gain;
-
-        return correction;
+        return angles.firstAngle + offset;
     }
 }

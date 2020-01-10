@@ -1,5 +1,6 @@
 package backcountry;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
 
 import backcountry.sensors.IMU;
@@ -16,9 +17,9 @@ public class Chassis{
 
 
     public Chassis(){
-        this.RightFront= new DriveUnit(1,4,"RightFront",false);
+        this.RightFront= new DriveUnit(1,4,"RightFront",true);
         this.LeftFront= new DriveUnit(1,4,"LeftFront",true);
-        this.RightBack= new DriveUnit(1,4,"RightBack",false);
+        this.RightBack= new DriveUnit(1,4,"RightBack",true);
         this.LeftBack= new DriveUnit(1,4,"LeftBack",true);
         this.IMU = new IMU(FTCUtilities.getIMU("imu"));
 
@@ -34,26 +35,20 @@ public class Chassis{
     }
 
     public void StraitMotion(double Speed,double Distence){
-//        RightBack.zeroDistance();
-//        LeftBack.zeroDistance();
-//        RightFront.zeroDistance();
-//        LeftFront.zeroDistance();
-
-        while(true){
+        boolean run = true;
+        while(run){
 
             RightBack.setPower(Speed);
             LeftBack.setPower(Speed);
-            RightFront.setPower(Speed);
+            RightFront.setPower(-Speed);
             LeftFront.setPower(Speed);
 
             double TravledRight = RightFront.getInchesTravelled();
             double TravledLeft = LeftFront.getInchesTravelled();
 
-            FTCUtilities.getTelemetry("inches travles: ", RightFront.getInchesTravelled());
-
 
             if((TravledRight > Distence) || (TravledLeft > Distence)){
-                break;
+                run = false;
             }
         }
 
@@ -61,45 +56,45 @@ public class Chassis{
         LeftBack.setPower(0);
         RightFront.setPower(0);
         LeftFront.setPower(0);
+
+        RightFront.zeroDistance();
+        LeftFront.zeroDistance();
+        RightBack.zeroDistance();
+        LeftBack.zeroDistance();
     }
 
     public void Rotate(int degrees, double power){
-
-        double  leftPower, rightPower;
+        double degreesNeeded = degrees + IMU.getAngle();
+        double  frontleftPower, frontrightPower, backleftPower, backrightPower;
 
         IMU.resetAngle();
 
         if (degrees < 0)
         {   // turn right.
-            leftPower = power;
-            rightPower = -power;
+            frontleftPower = power;
+            frontrightPower = power;
+            backleftPower = -power;
+            backrightPower = power;
         }
         else if (degrees > 0)
         {   // turn left.
-            leftPower = -power;
-            rightPower = power;
+            frontleftPower = -power;
+            frontrightPower = -power;
+            backleftPower = power;
+            backrightPower = -power;
         }
         else return;
 
-        RightFront.setPower(rightPower);
-        LeftFront.setPower(leftPower);
-        RightBack.setPower(rightPower);
-        LeftBack.setPower(leftPower);
+        RightFront.setPower(frontrightPower);
+        LeftFront.setPower(frontleftPower);
+        RightBack.setPower(backrightPower);
+        LeftBack.setPower(backleftPower);
 
-        if (degrees < 0)
-        {
-            while (IMU.getAngle() == 0) {}
-            while (IMU.getAngle() > degrees) {}
-        }
-        else    // left turn.
-            while (IMU.getAngle() < degrees) {}
-
+        while (IMU.getAngle() > degreesNeeded) {}
         RightFront.setPower(0);
         LeftFront.setPower(0);
         RightBack.setPower(0);
         LeftBack.setPower(0);
-
-        IMU.resetAngle();
     }
 
     public void Strafe(double speed,int Distence){
@@ -113,7 +108,7 @@ public class Chassis{
             RightBack.setPower(-speed);
             LeftBack.setPower(speed);
             RightFront.setPower(-speed);
-            LeftFront.setPower(speed);
+            LeftFront.setPower(-speed);
 
             double TravledRight = RightFront.getInchesTravelled();
             double TravledLeft = LeftFront.getInchesTravelled();
