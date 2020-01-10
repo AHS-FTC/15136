@@ -26,8 +26,6 @@ public class DriveUnit {
     public void init(){
         motor = FTCUtilities.getHardwareMap().get(DcMotor.class,deviceName);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void setPower(double power){
@@ -37,24 +35,20 @@ public class DriveUnit {
 
     public void zeroDistance(){
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-//    public void adjustPower(double error){
-//        double k=1;
-//        motor.setPower(motor.getPower()+k*error);
-//    }
+    }
 
     //this method should return the distance travelled in inches
     public double getInchesTravelled(){
-        double ticksPerRevolution=753.2;
+        double ticksPerRevolution=537.6;
 
         int ticks = motor.getCurrentPosition();
         double revolutions = ticks/ticksPerRevolution;
         double distance = revolutions*wheelDiameter*Math.PI;
 
-        FTCUtilities.getTelemetry("Ticks: ",ticks);
 
-        return distance;
+        return Math.abs(distance);
 
     }
 
