@@ -34,9 +34,16 @@ public class Chassis{
         RightBack.init();
     }
 
+    public void stopMotor(){
+        RightBack.setPower(0);
+        LeftBack.setPower(0);
+        RightFront.setPower(0);
+        LeftFront.setPower(0);
+    }
+
     public void StraitMotion(double Speed,double Distence){
         boolean run = true;
-        while(run){
+        while(run && FTCUtilities.isOpModeActive()){
 
             RightBack.setPower(Speed);
             LeftBack.setPower(Speed);
@@ -90,7 +97,7 @@ public class Chassis{
         RightBack.setPower(backrightPower);
         LeftBack.setPower(backleftPower);
 
-        while (IMU.getAngle() > degreesNeeded) {}
+        while (IMU.getAngle() > degreesNeeded && FTCUtilities.isOpModeActive()) {}
         RightFront.setPower(0);
         LeftFront.setPower(0);
         RightBack.setPower(0);
@@ -104,7 +111,7 @@ public class Chassis{
         LeftFront.zeroDistance();
 
         boolean run = true;
-        while(run){
+        while(run && FTCUtilities.isOpModeActive()){
             RightBack.setPower(-speed);
             LeftBack.setPower(speed);
             RightFront.setPower(-speed);

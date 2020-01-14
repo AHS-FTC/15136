@@ -37,6 +37,15 @@ public class FTCUtilities {
         opMode.telemetry.update();
     }
 
+    public static boolean isOpModeActive(){
+        if(opMode instanceof LinearOpMode){
+            LinearOpMode l = (LinearOpMode)opMode;
+            return l.opModeIsActive();
+        } else {
+            return true;
+        }
+    }
+
     public static BNO055IMU getIMU (String imuName){
         return hardwareMap.get(BNO055IMU.class, imuName);
     }

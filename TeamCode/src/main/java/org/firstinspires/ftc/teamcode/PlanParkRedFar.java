@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import backcountry.Chassis;
 
-class PlanParkBlueNear {
+class PlanParkRedFar {
     private Chassis c;
-    public PlanParkBlueNear(Chassis c){
+    public PlanParkRedFar(Chassis c){
         this.c = c;
     }
     public void run(){
-        c.Strafe(-.50,30);
-
+        c.StraitMotion(.50,21);
+        c.Strafe(.50, 30);
     }
 }

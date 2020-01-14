@@ -36,12 +36,12 @@ import backcountry.Chassis;
 import backcountry.FTCUtilities;
 import backcountry.Robot;
 
-@Autonomous(name="AutoTest", group="Linear Opmode")
+@Autonomous(name="ParkBlueNear", group="Linear Opmode")
 
-public class AutoTest extends LinearOpMode {
+public class ParkBlueNear extends LinearOpMode {
 
     private Robot robot;
-    private PlanParkBlueNear test1;
+    private PlanParkBlueNear Park;
 
     @Override
     public void runOpMode() {
@@ -49,9 +49,13 @@ public class AutoTest extends LinearOpMode {
         robot = new Robot();
         robot.init();
         Chassis chassis = robot.getChassis();
-        test1 = new PlanParkBlueNear(chassis);
+        Park = new PlanParkBlueNear(chassis);
 
         waitForStart();
-        test1.run();
+        Park.run();
+
+        stop();
+
+        chassis.stopMotor();
     }
 }
