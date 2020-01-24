@@ -5,15 +5,13 @@ import android.os.Build;
 
 import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.sensors.vuforia;
 import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.FTCUtilities;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.vuforia.Vuforia;
 
 @TeleOp(name="Vision Test OpMode", group="Iterative Opmode")
 public class WebCam extends OpMode
 {
-    Vuforia vuforia;
+//    Vuforia vuforia;
     Bitmap vuBitmap;
     Bitmap croppedBitmap;
 
@@ -21,12 +19,13 @@ public class WebCam extends OpMode
     public final int IMAGE_Y = 500;
     public final int IMAGE_WIDTH = 1000;
     public final int IMAGE_HEIGHT = 200;
+    private vuforia vuforia;
 
 
     @Override
     public void init() {
         FTCUtilities.setOpMode(this);
-        vuforia = new Vuforia();
+        this.vuforia = new vuforia();
     }
 
     @Override    public void init_loop() {
