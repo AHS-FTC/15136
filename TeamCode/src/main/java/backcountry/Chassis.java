@@ -1,9 +1,8 @@
-package backcountry;
+package org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.internal.android.dx.util.Warning;
-
-import backcountry.sensors.IMU;
+import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.sensors.IMU;
 
 public class Chassis{
 
@@ -11,9 +10,9 @@ public class Chassis{
     private DriveUnit LeftFront;
     private DriveUnit RightBack;
     private DriveUnit LeftBack;
+    private IMU IMU;
 
     private double runTime;
-    private backcountry.sensors.IMU IMU;
 
 
     public Chassis(){

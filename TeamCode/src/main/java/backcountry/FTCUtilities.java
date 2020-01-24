@@ -1,4 +1,4 @@
-package backcountry;
+package org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -30,6 +30,9 @@ public class FTCUtilities {
     public static void setOpMode(OpMode o){
         FTCUtilities.opMode = o;
         hardwareMap = o.hardwareMap;
+    }
+    public static OpMode getOpMode(){
+        return opMode;
     }
 
     public static void getTelemetry(String caption, Object object){

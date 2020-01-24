@@ -1,4 +1,4 @@
-package backcountry.sensors;
+package org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.sensors;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
