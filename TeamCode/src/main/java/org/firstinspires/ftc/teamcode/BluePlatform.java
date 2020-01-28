@@ -7,12 +7,12 @@ import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.Chassis
 import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.FTCUtilities;
 import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.Robot;
 
-@Autonomous(name="AutoTest", group="Linear Opmode")
+@Autonomous(name="PN_BluePlatform", group="Linear Opmode")
 
-public class AutoTest extends LinearOpMode {
+public class BluePlatform extends LinearOpMode {
 
     private Robot robot;
-    private PlanParkBlueNear test1;
+    private PlanBluePlatform Platform;
 
     @Override
     public void runOpMode() {
@@ -20,9 +20,9 @@ public class AutoTest extends LinearOpMode {
         robot = new Robot();
         robot.init();
         Chassis chassis = robot.getChassis();
-        test1 = new PlanParkBlueNear(chassis);
+        Platform = new PlanBluePlatform(chassis);
 
         waitForStart();
-        test1.run();
+        Platform.run();
     }
 }

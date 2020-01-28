@@ -34,6 +34,13 @@ public class FTCUtilities {
     public static OpMode getOpMode(){
         return opMode;
     }
+    public static boolean opModeIsActive() {
+        if (opMode instanceof LinearOpMode) {
+            return ((LinearOpMode) opMode).opModeIsActive();
+        } else {
+            return true;
+        }
+    }
 
     public static void getTelemetry(String caption, Object object){
         opMode.telemetry.addData(caption, object);

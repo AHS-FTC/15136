@@ -11,6 +11,7 @@ public class Chassis{
     private DriveUnit RightBack;
     private DriveUnit LeftBack;
     private IMU IMU;
+    private FTCUtilities FTCUtilities;
 
     private double runTime;
 
@@ -21,7 +22,7 @@ public class Chassis{
         this.RightBack= new DriveUnit(1,4,"RightBack",true);
         this.LeftBack= new DriveUnit(1,4,"LeftBack",true);
         this.IMU = new IMU(FTCUtilities.getIMU("imu"));
-
+        this.FTCUtilities = new FTCUtilities();
     }
 
 
@@ -35,7 +36,11 @@ public class Chassis{
 
     public void StraitMotion(double Speed,double Distence){
         boolean run = true;
-        while(run){
+        RightFront.zeroDistance();
+        LeftFront.zeroDistance();
+        RightBack.zeroDistance();
+        LeftBack.zeroDistance();
+        while(run && FTCUtilities.opModeIsActive()){
 
             RightBack.setPower(Speed);
             LeftBack.setPower(Speed);
@@ -56,10 +61,7 @@ public class Chassis{
         RightFront.setPower(0);
         LeftFront.setPower(0);
 
-        RightFront.zeroDistance();
-        LeftFront.zeroDistance();
-        RightBack.zeroDistance();
-        LeftBack.zeroDistance();
+
     }
 
     public void Rotate(int degrees, double power){
@@ -89,7 +91,7 @@ public class Chassis{
         RightBack.setPower(backrightPower);
         LeftBack.setPower(backleftPower);
 
-        while (IMU.getAngle() > degreesNeeded) {}
+        while (IMU.getAngle() > degreesNeeded && FTCUtilities.opModeIsActive()) {}
         RightFront.setPower(0);
         LeftFront.setPower(0);
         RightBack.setPower(0);
@@ -103,7 +105,7 @@ public class Chassis{
         LeftFront.zeroDistance();
 
         boolean run = true;
-        while(run){
+        while(run  && FTCUtilities.opModeIsActive()){
             RightBack.setPower(-speed);
             LeftBack.setPower(speed);
             RightFront.setPower(-speed);

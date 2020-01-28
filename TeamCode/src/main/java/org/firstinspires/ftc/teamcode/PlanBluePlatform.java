@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode.TeamCode.src.main.java.org.firstinspires.
 
 import org.firstinspires.ftc.teamcode.TeamCode.src.main.java.backcountry.Chassis;
 
-class PlanParkBlueNear {
+class PlanBluePlatform {
     private Chassis c;
-    public PlanParkBlueNear(Chassis c){
+    public PlanBluePlatform(Chassis c){
         this.c = c;
     }
     public void run(){
-        c.StraitMotion(-.50,50);
+        c.StraitMotion(.50,40);
 
     }
 }
